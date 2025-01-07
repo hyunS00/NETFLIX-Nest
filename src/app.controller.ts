@@ -1,7 +1,7 @@
 import { Controller, Get, Patch, Post, Delete } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller('movie')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
@@ -21,7 +21,7 @@ export class AppController {
     ];
   }
 
-  @Get()
+  @Get(':id')
   getMovie() {
     return {
       id: 1,
@@ -39,7 +39,7 @@ export class AppController {
     };
   }
 
-  @Patch()
+  @Patch(':id')
   patchMovie() {
     return {
       id: 3,
@@ -48,7 +48,7 @@ export class AppController {
     };
   }
 
-  @Delete()
+  @Delete(':id')
   deleteMove() {
     return 3;
   }
