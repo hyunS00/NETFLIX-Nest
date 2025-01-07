@@ -70,7 +70,15 @@ export class AppController {
   }
 
   @Delete(':id')
-  deleteMove() {
-    return 3;
+  deleteMove(@Param('id') id: string) {
+    const movieIndex = this.movies.findIndex((m) => m.id === +id);
+
+    if (movieIndex === -1) {
+      throw new NotFoundException('존재하지 않는 영화 ID입니다.');
+    }
+
+    this.movies.splice(movieIndex, 1);
+
+    return id;
   }
 }
