@@ -6,6 +6,7 @@ import {
   Delete,
   Param,
   NotFoundException,
+  Body,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 
@@ -25,6 +26,7 @@ export class AppController {
       title: '스토브리그',
     },
   ];
+  private idCounter = 3;
 
   constructor(private readonly appService: AppService) {}
 
@@ -45,7 +47,15 @@ export class AppController {
   }
 
   @Post()
-  postMovie() {}
+  postMovie(@Body('title') title: string) {
+    const movie: Movie = {
+      id: this.idCounter++,
+      title: title,
+    };
+
+    this.movies.push(movie);
+    return movie;
+  }
 
   @Patch(':id')
   patchMovie() {
