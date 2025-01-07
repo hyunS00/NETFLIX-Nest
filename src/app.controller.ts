@@ -1,24 +1,28 @@
 import { Controller, Get, Patch, Post, Delete } from '@nestjs/common';
 import { AppService } from './app.service';
 
+interface Movie {
+  id: number;
+  title: string;
+}
 @Controller('movie')
 export class AppController {
+  private movies: Movie[] = [
+    {
+      id: 1,
+      title: '아케인',
+    },
+    {
+      id: 2,
+      title: '스토브리그',
+    },
+  ];
+
   constructor(private readonly appService: AppService) {}
 
   @Get()
   getMovies() {
-    return [
-      {
-        id: 1,
-        name: '아케인',
-        character: ['바이', '징크스'],
-      },
-      {
-        id: 2,
-        name: '스토브리그',
-        character: ['남궁민'],
-      },
-    ];
+    return this.movies;
   }
 
   @Get(':id')
