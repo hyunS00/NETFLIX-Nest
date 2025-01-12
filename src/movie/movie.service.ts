@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 import { MovieDetail } from './entity/movie-detail.entity';
 import { Director } from 'src/director/entitie/director.entity';
+import { Genre } from 'src/genre/entitie/genre.entity';
 
 @Injectable()
 export class MovieService {
@@ -16,6 +17,8 @@ export class MovieService {
     private readonly movieDetailRepository: Repository<MovieDetail>,
     @InjectRepository(Director)
     private readonly directorRepository: Repository<Director>,
+    @InjectRepository(Genre)
+    private readonly genreRepository: Repository<Genre>,
   ) {}
 
   async findAll(title?: string) {
