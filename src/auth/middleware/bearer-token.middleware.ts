@@ -49,6 +49,10 @@ export class BeareTokenMiddleware implements NestMiddleware {
       next();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
+      if (e.name === 'TokenExpiredError') {
+        throw new UnauthorizedException('토큰이 만료됐습니다.');
+      }
+
       next();
     }
   }
