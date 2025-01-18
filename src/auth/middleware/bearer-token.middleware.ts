@@ -25,9 +25,8 @@ export class BeareTokenMiddleware implements NestMiddleware {
       return;
     }
 
-    const token = this.validateBearerToken(authHeader);
-
     try {
+      const token = this.validateBearerToken(authHeader);
       const decodedPayload = this.jwtService.decode(token);
 
       if (
@@ -50,7 +49,7 @@ export class BeareTokenMiddleware implements NestMiddleware {
       next();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
-      throw new UnauthorizedException('토큰이 만료됐습니다.');
+      next();
     }
   }
 
