@@ -18,6 +18,7 @@ import { MovieTitleValidationPipe } from './pipe/movie-title-validation.pipe';
 import { Public } from 'src/auth/decorater/public.decorator';
 import { RBAC } from 'src/auth/decorater/rbac.decorator';
 import { Role } from 'src/user/entities/user.entity';
+import { GetMoviesDto } from './dto/get-movies.dto';
 @Controller('movie')
 @UseInterceptors(ClassSerializerInterceptor)
 export class MovieController {
@@ -25,9 +26,9 @@ export class MovieController {
 
   @Get()
   @Public()
-  getMovies(@Query('title', MovieTitleValidationPipe) title?: string) {
+  getMovies(@Query() dto: GetMoviesDto) {
     // title 쿼리의 타입이 string인지 검증하는건 컨트롤러
-    return this.movieService.findAll(title);
+    return this.movieService.findAll(dto);
   }
 
   @Get(':id')
