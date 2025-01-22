@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 
 @Catch(ForbiddenException)
-export class ForbiddenExceptionFillter implements ExceptionFilter {
+export class ForbiddenExceptionFilter implements ExceptionFilter {
   catch(exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
