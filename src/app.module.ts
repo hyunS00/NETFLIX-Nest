@@ -19,10 +19,11 @@ import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { envVariables } from './common/const/env.const';
 import { BeareTokenMiddleware } from './auth/middleware/bearer-token.middleware';
-import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AuthGuard } from './auth/guard/auth.guard';
 import { RBACGuard } from './auth/guard/rbac.guard';
 import { ResponseTimeInterceptor } from './common/interceptor/response-time.interceptor';
+import { ForbiddenExceptionFillter } from './common/fillter/forbidden.fillter';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -71,6 +72,10 @@ import { ResponseTimeInterceptor } from './common/interceptor/response-time.inte
     {
       provide: APP_INTERCEPTOR,
       useClass: ResponseTimeInterceptor,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: ForbiddenExceptionFillter,
     },
   ],
 })
