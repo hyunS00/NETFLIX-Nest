@@ -23,6 +23,7 @@ import { Role } from 'src/user/entities/user.entity';
 import { GetMoviesDto } from './dto/get-movies.dto';
 import { TransactionInterceptor } from 'src/common/interceptor/transaction.interceptor';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { UserId } from 'src/user/decorator/user-id.decorator';
 @Controller('movie')
 @UseInterceptors(ClassSerializerInterceptor)
 export class MovieController {
@@ -47,8 +48,12 @@ export class MovieController {
   @Post()
   @RBAC(Role.admin)
   @UseInterceptors(TransactionInterceptor)
-  postMovie(@Body() body: CreateMovieDto, @Request() req) {
-    return this.movieService.create(body, req.queryRunner);
+  postMovie(
+    @Body() body: CreateMovieDto,
+    @Request() req,
+    @UserId() userId: number,
+  ) {
+    return this.movieService.create(body, userId, req.queryRunner);
   }
 
   @Patch(':id')
