@@ -10,7 +10,6 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
   ParseIntPipe,
-  Request,
 } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -65,6 +64,31 @@ export class MovieController {
   ) {
     return this.movieService.update(id, body);
   }
+
+  /**
+   * [Like] [Dislike]
+   *
+   * 아무것도 누르지 않은 상태
+   * Like & Dislike 모두 버튼 꺼져있음
+   *
+   * Like 버튼 누르면
+   * Like 버튼 불 켜짐
+   *
+   * Like 버튼 다시 누르면
+   * Like 버튼 불 꺼짐
+   *
+   * Dislike 버튼 누르면
+   * Dislike 불 켜짐
+   *
+   * Dislike 버튼 다시 누르면
+   * Dislike 버튼 불 꺼짐
+   *
+   * Like 버튼 누름
+   * Like 버튼 불 켜짐
+   *
+   * Dislike 버튼 누름
+   * Like 버튼 불 꺼지고 Dislike 버튼 불 켜짐
+   */
 
   @Delete(':id')
   @RBAC(Role.admin)

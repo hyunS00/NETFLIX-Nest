@@ -5,6 +5,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -14,6 +15,7 @@ import { Director } from 'src/director/entitie/director.entity';
 import { Genre } from 'src/genre/entitie/genre.entity';
 import { Transform } from 'class-transformer';
 import { User } from 'src/user/entities/user.entity';
+import { MovieUserLike } from './movie-user-like.entity';
 
 /// ManyToOne Director -> 감독은 여러개의 영화를 만들 수 있음
 /// OneToOne MovieDetail -> 영화는 하나의 상세 내용을 가질 수 있음
@@ -57,4 +59,7 @@ export class Movie extends BaseTable {
     nullable: false,
   })
   director: Director;
+
+  @OneToMany(() => MovieUserLike, (mul) => mul.movie)
+  likedUsers: MovieUserLike[];
 }
