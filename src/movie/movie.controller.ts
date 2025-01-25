@@ -65,6 +65,12 @@ export class MovieController {
     return this.movieService.update(id, body);
   }
 
+  @Delete(':id')
+  @RBAC(Role.admin)
+  deleteMove(@Param('id', ParseIntPipe) id: number) {
+    return this.movieService.remove(id);
+  }
+
   /**
    * [Like] [Dislike]
    *
@@ -89,10 +95,19 @@ export class MovieController {
    * Dislike 버튼 누름
    * Like 버튼 불 꺼지고 Dislike 버튼 불 켜짐
    */
+  @Post(':id/like')
+  createMovieLike(
+    @Param('id', ParseIntPipe) movieId: number,
+    @UserId() userId: number,
+  ) {
+    return this.movieService.toggleMovieLike(movieId, userId, true);
+  }
 
-  @Delete(':id')
-  @RBAC(Role.admin)
-  deleteMove(@Param('id', ParseIntPipe) id: number) {
-    return this.movieService.remove(id);
+  @Post(':id/dislike')
+  createMovieDislike(
+    @Param('id', ParseIntPipe) movieId: number,
+    @UserId() userId: number,
+  ) {
+    return this.movieService.toggleMovieLike(movieId, userId, false);
   }
 }
