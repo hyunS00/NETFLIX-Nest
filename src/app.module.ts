@@ -28,6 +28,7 @@ import { QueryFailedExceptionFilter } from './common/filter/query-failed.filter'
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { MovieUserLike } from './movie/entity/movie-user-like.entity';
+import { CacheModule } from '@nestjs/cache-manager';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -62,6 +63,7 @@ import { MovieUserLike } from './movie/entity/movie-user-like.entity';
       rootPath: join(process.cwd(), 'public'),
       serveRoot: '/public/',
     }),
+    CacheModule.register({ ttl: 10000, isGlobal: true }),
     MovieModule,
     DirectorModule,
     GenreModule,

@@ -9,7 +9,6 @@ import { Genre } from 'src/genre/entitie/genre.entity';
 import { CommonModule } from 'src/common/common.module';
 import { User } from 'src/user/entities/user.entity';
 import { MovieUserLike } from './entity/movie-user-like.entity';
-import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -22,7 +21,6 @@ import { CacheModule } from '@nestjs/cache-manager';
       MovieUserLike,
     ]),
     CommonModule,
-    CacheModule.register({ ttl: 10000 }),
     // MulterModule.register({
     //   storage: diskStorage({
     //     destination: join(process.cwd(), 'public', 'movie'),
