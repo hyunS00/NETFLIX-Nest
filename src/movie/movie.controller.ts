@@ -30,9 +30,9 @@ export class MovieController {
 
   @Get()
   @Public()
-  getMovies(@Query() dto: GetMoviesDto) {
+  getMovies(@Query() dto: GetMoviesDto, @UserId() userId?: number) {
     // title 쿼리의 타입이 string인지 검증하는건 컨트롤러
-    return this.movieService.findAll(dto);
+    return this.movieService.findAll(dto, userId);
   }
 
   @Get(':id')
