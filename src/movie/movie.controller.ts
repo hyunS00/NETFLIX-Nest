@@ -28,7 +28,7 @@ import {
   CacheInterceptor as CI,
 } from '@nestjs/cache-manager';
 import { Throttle } from 'src/common/decorator/throttle.decorator';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('movie')
 @ApiBearerAuth()
@@ -41,6 +41,17 @@ export class MovieController {
   @Throttle({
     count: 5,
     unit: 'minute',
+  })
+  @ApiOperation({
+    description: '[Movie]를 Pagination하는 API',
+  })
+  @ApiResponse({
+    status: 200,
+    description: '성공적으로 API Pagination을 실행 했을 때',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Pagination 데이터를 잘못 입력했을 때',
   })
   getMovies(@Query() dto: GetMoviesDto, @UserId() userId?: number) {
     // title 쿼리의 타입이 string인지 검증하는건 컨트롤러
