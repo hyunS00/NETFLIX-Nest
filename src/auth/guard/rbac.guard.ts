@@ -9,7 +9,6 @@ export class RBACGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const role = this.reflector.get<Role>(RBAC, context.getHandler());
-
     // Role Enum에 해당되는 값이 데코레이터에 들어갔는지 확인하기
     if (!Object.values(Role).includes(role)) {
       return true;

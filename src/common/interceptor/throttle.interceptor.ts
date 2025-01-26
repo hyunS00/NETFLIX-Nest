@@ -47,8 +47,6 @@ export class ThrottleInterceptor implements NestInterceptor {
     const key = `${request.method}_${request.path}_${userId}_${minute}`;
 
     const count = await this.cacheManager.get<number>(key);
-    console.log(key);
-    console.log(count);
 
     if (count && count >= throttleOptions.count) {
       throw new ForbiddenException('요청 가능 횟수를 넘어섰습니다.');
