@@ -10,8 +10,6 @@ import {
   UseInterceptors,
   ClassSerializerInterceptor,
   ParseIntPipe,
-  Version,
-  VERSION_NEUTRAL,
 } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -30,16 +28,10 @@ import {
   CacheInterceptor as CI,
 } from '@nestjs/cache-manager';
 import { Throttle } from 'src/common/decorator/throttle.decorator';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
-@Controller({ path: 'movie', version: '2' })
-export class MovieControllerV2 {
-  @Get()
-  getMovies() {
-    return [];
-  }
-}
-
-@Controller({ path: 'movie', version: VERSION_NEUTRAL })
+@Controller('movie')
+@ApiBearerAuth()
 @UseInterceptors(ClassSerializerInterceptor)
 export class MovieController {
   constructor(private readonly movieService: MovieService) {}
