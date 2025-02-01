@@ -12,8 +12,8 @@ export class DirectorService {
     private readonly directorRepository: Repository<Director>,
   ) {}
 
-  create(createDirectorDto: CreateDirectorDto) {
-    return this.directorRepository.save(createDirectorDto);
+  async create(createDirectorDto: CreateDirectorDto) {
+    return await this.directorRepository.save(createDirectorDto);
   }
 
   findAll() {
