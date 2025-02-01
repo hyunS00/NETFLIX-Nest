@@ -112,6 +112,9 @@ export class AuthService {
       return payload;
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
+      if (e instanceof BadRequestException) {
+        throw e;
+      }
       throw new UnauthorizedException('토큰이 만료됐습니다.');
     }
   }
