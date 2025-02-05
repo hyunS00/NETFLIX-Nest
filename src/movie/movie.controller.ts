@@ -100,7 +100,7 @@ export class MovieController {
 
   @Delete(':id')
   @RBAC(Role.admin)
-  deleteMove(@Param('id', ParseIntPipe) id: number) {
+  deleteMovie(@Param('id', ParseIntPipe) id: number) {
     return this.movieService.remove(id);
   }
 

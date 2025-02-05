@@ -89,7 +89,7 @@ describe('DirectorService', () => {
     });
   });
   describe('findOne', () => {
-    it('should return user by id', async () => {
+    it('should return a director by id', async () => {
       const id = 1;
       const director = {
         id,
