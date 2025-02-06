@@ -116,10 +116,10 @@ import * as winston from 'winston';
       provide: APP_GUARD,
       useClass: RBACGuard,
     },
-    {
-      provide: APP_INTERCEPTOR,
-      useClass: ResponseTimeInterceptor,
-    },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: ResponseTimeInterceptor,
+    // },
     // {
     //   provide: APP_FILTER,
     //   useClass: ForbiddenExceptionFilter,
