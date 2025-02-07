@@ -66,11 +66,11 @@ import * as winston from 'winston';
         entities: [Movie, MovieDetail, Director, Genre, User, MovieUserLike],
         synchronize:
           configService.get<string>(envVariables.env) === 'prod' ? false : true,
-        // ...(configService.get<string>(envVariables.env) === 'prod' && {
-        //   ssl: {
-        //     rejectUnauthorized: false,
-        //   },
-        // }),
+        ...(configService.get<string>(envVariables.env) === 'prod' && {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        }),
       }),
       inject: [ConfigService],
     }),
