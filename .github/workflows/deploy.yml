@@ -48,6 +48,6 @@ jobs:
             --source-bundle S3Bucket="nestjs-netflix-bucket",S3Key="deploy.zip"
 
           aws elasticbeanstalk update-enviroment \
-            --application-name "nestjs-netflix" \
+            --application-name "Nestjs-netflix" \
             --enviroment-name "Nestjs-netflix-env" \
             --version-label $GITHUB_SHA
