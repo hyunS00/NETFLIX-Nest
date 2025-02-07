@@ -1,11 +1,74 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { SelectQueryBuilder } from 'typeorm';
 import { PagePaginationDto } from './dto/page-pagination.dto';
 import { CursorPaginationDto } from './dto/cursor-pagination.dto';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { ObjectCannedACL, PutObjectCommand, S3 } from '@aws-sdk/client-s3';
+import { v4 as Uuid } from 'uuid';
+import { envVariables } from './const/env.const';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class CommonService {
-  constructor() {}
+  private s3: S3;
+
+  constructor(private readonly configService: ConfigService) {
+    this.s3 = new S3({
+      credentials: {
+        accessKeyId: configService.get<string>(envVariables.awsAccessKeyId),
+        secretAccessKey: configService.get<string>(
+          envVariables.awsScretAccessKey,
+        ),
+      },
+
+      region: configService.get<string>(envVariables.awsRegion),
+    });
+  }
+
+  async saveMovieToPermanetnStorage(filename: string) {
+    try {
+      const bucketName = this.configService.get<string>(
+        envVariables.bucketName,
+      );
+      await this.s3.copyObject({
+        Bucket: bucketName,
+        CopySource: `${bucketName}/public/temp/${filename}`,
+        Key: `public/movie/${filename}`,
+        ACL: 'public-read',
+      });
+
+      await this.s3.deleteObject({
+        Bucket: bucketName,
+        Key: `public/temp/${filename}`,
+      });
+    } catch (e) {
+      console.log(e);
+      throw new InternalServerErrorException('S3 에러');
+    }
+  }
+
+  async createPresigndUrl(expiresIn = 300) {
+    const params = {
+      Bucket: this.configService.get<string>(envVariables.bucketName),
+      Key: `public/temp/${Uuid()}.mp4`,
+      ACL: ObjectCannedACL.public_read,
+    };
+
+    try {
+      const url = await getSignedUrl(this.s3, new PutObjectCommand(params), {
+        expiresIn,
+      });
+
+      return url;
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException('S3 Presigned URL 생성 실패');
+    }
+  }
 
   appliyPagePaginationParamsToQb<T>(
     qb: SelectQueryBuilder<T>,
