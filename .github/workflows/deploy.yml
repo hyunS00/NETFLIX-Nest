@@ -91,10 +91,13 @@ jobs:
           mkdir -p ./public/temp
 
       - name: Install Dependencies
-        run: npm i
+        run: npm i --force
 
       - name: Build Project
         run: npm run build
+
+      - name: Run Test
+        run: npm run test
 
       - name: Install Typeorm
         run: npm i -g typeorm
