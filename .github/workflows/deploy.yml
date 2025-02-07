@@ -49,5 +49,5 @@ jobs:
 
           aws elasticbeanstalk update-environment \
             --application-name "Nestjs-netflix" \
-            --enviroment-name "Nestjs-netflix-env" \
+            --environment-name "Nestjs-netflix-env" \
             --version-label $GITHUB_SHA
