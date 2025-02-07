@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@automock/adapters.nestjs':
+        specifier: ^2.1.0
+        version: 2.1.0
       '@aws-sdk/client-s3':
         specifier: ^3.743.0
         version: 3.743.0
@@ -210,6 +213,10 @@ packages:
   '@angular-devkit/schematics@17.3.11':
     resolution: {integrity: sha512-I5wviiIqiFwar9Pdk30Lujk8FczEEc18i22A5c6Z9lbmhPQdTroDnEQdsfXjy404wPe8H62s0I15o4pmMGfTYQ==}
     engines: {node: ^18.13.0 || >=20.9.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
+
+  '@automock/adapters.nestjs@2.1.0':
+    resolution: {integrity: sha512-cwolpTMF+frIm6idLC/zD0obgG/Wf5wP6I8FKJBcRy+Cuc9Pyy/E7200zafYlOVzUlZUP16VqchgGWpUyb1U3Q==}
+    engines: {node: ^16.10.0 || ^18.12.0 || >=20.0.0}
 
   '@automock/common@3.1.0':
     resolution: {integrity: sha512-Y7N4YnSZRuSIfGV4/PdG2JyURa9PK1maqGZBYUG2/sIW+H/Mlhc/3NpegnlUyQFRBexEJtgmUsvfzzI1/lm0JA==}
@@ -1990,8 +1997,8 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  electron-to-chromium@1.5.95:
-    resolution: {integrity: sha512-XNsZaQrgQX+BG37BRQv+E+HcOZlWhqYaDoVVNCws/WrYYdbGrkR1qCDJ2mviBF3flCs6/BTa4O7ANfFTFZk6Dg==}
+  electron-to-chromium@1.5.96:
+    resolution: {integrity: sha512-8AJUW6dh75Fm/ny8+kZKJzI1pgoE8bKLZlzDU2W1ENd+DXKJrx7I7l9hb8UWR4ojlnb5OlixMt00QWiYJoVw1w==}
 
   emittery@0.13.1:
     resolution: {integrity: sha512-DeWwawk6r5yR9jFgnDKYt4sLS0LmHJJi3ZOnb5/JdbYwj3nW+FxQnHIjhBKz8YLC7oRNPVM9NQ47I3CVx34eqQ==}
@@ -3468,6 +3475,9 @@ packages:
     resolution: {integrity: sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==}
     engines: {node: '>=8.10.0'}
 
+  reflect-metadata@0.1.14:
+    resolution: {integrity: sha512-ZhYeb6nRaXCfhnndflDK8qI6ZQ/YcWZCISRAWICW9XYqMUwjZM9Z0DveWX/ABN01oxSHwVxKQmxeYZSsm0jh5A==}
+
   reflect-metadata@0.2.2:
     resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
 
@@ -4251,6 +4261,12 @@ snapshots:
       rxjs: 7.8.1
     transitivePeerDependencies:
       - chokidar
+
+  '@automock/adapters.nestjs@2.1.0':
+    dependencies:
+      '@automock/common': 3.1.0
+      '@automock/types': 2.0.1
+      reflect-metadata: 0.1.14
 
   '@automock/common@3.1.0':
     dependencies:
@@ -6388,7 +6404,7 @@ snapshots:
   browserslist@4.24.4:
     dependencies:
       caniuse-lite: 1.0.30001698
-      electron-to-chromium: 1.5.95
+      electron-to-chromium: 1.5.96
       node-releases: 2.0.19
       update-browserslist-db: 1.1.2(browserslist@4.24.4)
 
@@ -6407,7 +6423,7 @@ snapshots:
   buffer@4.9.2:
     dependencies:
       base64-js: 1.5.1
-      ieee754: 1.2.1
+      ieee754: 1.1.13
       isarray: 1.0.0
 
   buffer@5.7.1:
@@ -6765,7 +6781,7 @@ snapshots:
     dependencies:
       jake: 10.9.2
 
-  electron-to-chromium@1.5.95: {}
+  electron-to-chromium@1.5.96: {}
 
   emittery@0.13.1: {}
 
@@ -8515,6 +8531,8 @@ snapshots:
   readdirp@3.6.0:
     dependencies:
       picomatch: 2.3.1
+
+  reflect-metadata@0.1.14: {}
 
   reflect-metadata@0.2.2: {}
 

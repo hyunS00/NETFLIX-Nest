@@ -13,6 +13,7 @@ import { DataSource } from 'typeorm';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { NotFoundException } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 
 describe('MovieService', () => {
   let service: MovieService;
@@ -27,6 +28,7 @@ describe('MovieService', () => {
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [
+        ConfigModule.forRoot(),
         CacheModule.register(),
         TypeOrmModule.forRoot({
           type: 'sqlite',
