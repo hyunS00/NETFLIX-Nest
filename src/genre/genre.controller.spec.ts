@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GenreController } from './genre.controller';
 import { GenreService } from './genre.service';
-import { Genre } from './entitie/genre.entity';
+import { Genre } from './entity/genre.entity';
 
 const mockGenreService = {
   create: jest.fn(),

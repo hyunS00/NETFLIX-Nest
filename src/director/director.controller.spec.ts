@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DirectorController } from './director.controller';
 import { DirectorService } from './director.service';
-import { Director } from './entitie/director.entity';
+import { Director } from './entity/director.entity';
 import { CreateDirectorDto } from './dto/create-director.dto';
 import { UpdateDirectorDto } from './dto/update-director.dto';
 

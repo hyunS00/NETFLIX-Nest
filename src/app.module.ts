@@ -11,12 +11,12 @@ import * as Joi from 'joi';
 import { Movie } from './movie/entity/movie.entity';
 import { MovieDetail } from './movie/entity/movie-detail.entity';
 import { DirectorModule } from './director/director.module';
-import { Director } from './director/entitie/director.entity';
+import { Director } from './director/entity/director.entity';
 import { GenreModule } from './genre/genre.module';
-import { Genre } from './genre/entitie/genre.entity';
+import { Genre } from './genre/entity/genre.entity';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
+import { User } from './user/entity/user.entity';
 import { envVariables } from './common/const/env.const';
 import { BeareTokenMiddleware } from './auth/middleware/bearer-token.middleware';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
@@ -31,7 +31,10 @@ import { CacheModule } from '@nestjs/cache-manager';
 import { ThrottleInterceptor } from './common/interceptor/throttle.interceptor';
 import { ScheduleModule } from '@nestjs/schedule';
 import { WinstonModule } from 'nest-winston';
+import { ChatModule } from './chat/chat.module';
 import * as winston from 'winston';
+import { Chat } from './chat/entity/chat.entity';
+import { ChatRoom } from './chat/entity/chat-room.entity';
 
 @Module({
   imports: [
@@ -63,7 +66,16 @@ import * as winston from 'winston';
         username: configService.get<string>(envVariables.dbUsername),
         password: configService.get<string>(envVariables.dbPassword),
         database: configService.get<string>(envVariables.dbDatabase),
-        entities: [Movie, MovieDetail, Director, Genre, User, MovieUserLike],
+        entities: [
+          Movie,
+          MovieDetail,
+          Director,
+          Genre,
+          User,
+          MovieUserLike,
+          Chat,
+          ChatRoom,
+        ],
         synchronize:
           configService.get<string>(envVariables.env) === 'prod' ? false : true,
         ...(configService.get<string>(envVariables.env) === 'prod' && {
@@ -113,6 +125,7 @@ import * as winston from 'winston';
     GenreModule,
     AuthModule,
     UserModule,
+    ChatModule,
   ],
   providers: [
     {

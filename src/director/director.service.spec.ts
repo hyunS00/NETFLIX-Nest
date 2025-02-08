@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DirectorService } from './director.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Director } from './entitie/director.entity';
+import { Director } from './entity/director.entity';
 import { Repository } from 'typeorm';
 import { CreateDirectorDto } from './dto/create-director.dto';
 import { UpdateDirectorDto } from './dto/update-director.dto';

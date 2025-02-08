@@ -7,7 +7,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+import { User } from './entity/user.entity';
 import { envVariables } from 'src/common/const/env.const';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';

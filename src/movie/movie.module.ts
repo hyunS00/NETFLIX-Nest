@@ -4,10 +4,10 @@ import { MovieController } from './movie.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Movie } from './entity/movie.entity';
 import { MovieDetail } from './entity/movie-detail.entity';
-import { Director } from 'src/director/entitie/director.entity';
-import { Genre } from 'src/genre/entitie/genre.entity';
+import { Director } from 'src/director/entity/director.entity';
+import { Genre } from 'src/genre/entity/genre.entity';
 import { CommonModule } from 'src/common/common.module';
-import { User } from 'src/user/entities/user.entity';
+import { User } from 'src/user/entity/user.entity';
 import { MovieUserLike } from './entity/movie-user-like.entity';
 
 @Module({

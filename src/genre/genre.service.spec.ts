@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GenreService } from './genre.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Genre } from './entitie/genre.entity';
+import { Genre } from './entity/genre.entity';
 import { Repository } from 'typeorm';
 import { NotFoundException } from '@nestjs/common';
 
