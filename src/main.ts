@@ -6,6 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 import * as ffmpeg from '@ffmpeg-installer/ffmpeg';
 import * as ffmpegFluent from 'fluent-ffmpeg';
 import * as ffprobe from 'ffprobe-static';
+import * as session from 'express-session';
 
 ffmpegFluent.setFfmpegPath(ffmpeg.path);
 ffmpegFluent.setFfprobePath(ffprobe.path);
@@ -40,6 +41,13 @@ async function bootstrap() {
       },
     }),
   );
+
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET,
+    }),
+  );
+
   await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
