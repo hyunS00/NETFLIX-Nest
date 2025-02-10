@@ -8,11 +8,17 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { CommonService } from './common.service';
+import { Queue } from 'bullmq';
+import { InjectQueue } from '@nestjs/bullmq';
 
 @Controller('common')
 @ApiBearerAuth()
 export class CommonController {
-  constructor(private readonly commonService: CommonService) {}
+  constructor(
+    private readonly commonService: CommonService,
+    @InjectQueue('thumbnail-generation')
+    private readonly thumbnailQueue: Queue,
+  ) {}
   @Post('video')
   @UseInterceptors(
     FileInterceptor('video', {
@@ -20,20 +26,37 @@ export class CommonController {
         fileSize: 20000000,
       },
       fileFilter(req, file, callback) {
-        if (file.mimetype !== 'video/mp4') {
+        if (!file || file.mimetype !== 'video/mp4') {
           return callback(
             new BadRequestException('MP4 타입만 업로드 가능합니다!'),
             false,
           );
         }
+
         return callback(null, true);
       },
     }),
   )
-  createVideo(
+  async createVideo(
     @UploadedFile()
     movie: Express.Multer.File,
   ) {
+    await this.thumbnailQueue.add(
+      'thumbnail',
+      {
+        videoId: movie.filename,
+        videoPath: movie.path,
+      },
+      {
+        priority: 1,
+        delay: 100,
+        attempts: 3,
+        // lifo:true,
+        removeOnComplete: true,
+        removeOnFail: true,
+      },
+    );
+
     return {
       fileName: movie.filename,
     };

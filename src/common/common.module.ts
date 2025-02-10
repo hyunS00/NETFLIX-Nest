@@ -9,6 +9,9 @@ import { TasksService } from './tasks.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Movie } from 'src/movie/entity/movie.entity';
 import { DefaultLogger } from './logger/default.logger';
+import { BullModule } from '@nestjs/bullmq';
+import { ConfigService } from '@nestjs/config';
+import { envVariables } from './const/env.const';
 
 @Module({
   imports: [
@@ -28,6 +31,20 @@ import { DefaultLogger } from './logger/default.logger';
           cb(null, `${v4()}_${Date.now()}.${extention}`);
         },
       }),
+    }),
+    BullModule.forRootAsync({
+      useFactory: (configService: ConfigService) => ({
+        connection: {
+          host: configService.get<string>(envVariables.redisHost),
+          port: configService.get<number>(envVariables.redisPort),
+          username: configService.get<string>(envVariables.redisUsername),
+          password: configService.get<string>(envVariables.redisPassword),
+        },
+      }),
+      inject: [ConfigService],
+    }),
+    BullModule.registerQueue({
+      name: 'thumbnail-generation',
     }),
   ],
   controllers: [CommonController],
